@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="top-container">
+        <h2>Tus Tareas - KeOla</h2>
+        <p-button class="boton" label="Nueva Tarea" [routerLink]="['/crear']"></p-button>
+    </div>
+    <div class="filtros-container">
+        <div class="drop-container">
+            <p-dropdown [style]="{ 'width': '100%', 'margin': '0' }" [options]= [1,2,3] [(ngModel)]="filterPrioridad"  [showClear]="true" placeholder="Prioridad" (ngModelChange)="filterByPrioridad(filterPrioridad)"></p-dropdown>
+        </div>
+        <div class="drop-container">
+            <p-dropdown [style]="{ 'width': '100%', 'margin': '0' }" [options]= optionsEstado [(ngModel)]="filterEstado"  [showClear]="true" placeholder="Estado" (ngModelChange)="filterByEstado(filterEstado)" ></p-dropdown>
+        </div>
+   </div>
+   <div class="filtros-container">
+    <div class="drop-container">
+        <p-calendar [(ngModel)]="filterFecha" onchange="filterByFecha(filterFecha)" (ngModelChange)="filterByFecha(filterFecha)"></p-calendar>
+    </div>
+    <div class="drop-container">
+        <p-dropdown [style]="{ 'width': '100%', 'margin': '0' }" [options]= optionsOrdenamiento [(ngModel)]="orderBySelected"  [showClear]="true" placeholder="Ordenar" (ngModelChange)="orderBy(orderBySelected)" ></p-dropdown>
+    </div>
+</div>
+    <div class="tareas-container">
+        <div class="tarea" *ngFor="let tarea of filteredTareas">
+            <div class="tarea-container">
+                <div class="tarea-top-container">
+                    <h3>{{tarea.nombre}}</h3>
+                    <h4>{{tarea.fechaVencimiento | date: 'dd/MM/yyyy'}}</h4>
+                </div>
+                <div class="tarea-body-container">
+                    <p>{{tarea.descripcion}}</p>
+                </div>
+                <div class="tarea-bottom-container">
+                    <p-button label="Prioridad" [styleClass]="getPrioridad(tarea.prioridad)" [badgeClass]="getPrioridadBadge(tarea.prioridad)" badge="{{tarea.prioridad}}"></p-button>
+                    <div class="tags" *ngFor="let tag of tarea.tags">
+                        <h5>{{tag}}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="actions-container">
+                <p-button icon="pi pi-check" [disabled]="tarea.estado === 'completado'" [styleClass]="getEstado(tarea.estado)" (click)="realizarTarea(tarea.id)"></p-button>
+                <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-outlined p-button-sm" (click)="eliminarTarea(tarea.id)"></p-button>
+                <p-button icon="pi pi-pencil" styleClass="p-button-rounded p-button-help p-button-outlined p-button-sm" [routerLink]="['/editar', tarea.id]"></p-button>
+            </div>
+        </div>
+    </div>
+</div>

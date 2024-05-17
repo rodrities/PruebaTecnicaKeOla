@@ -1,0 +1,17 @@
+<div class="container">
+    <form class="form-container" [formGroup]="createTareaForm" (ngSubmit)="guardarTarea()">
+        <input type="text" pInputText [(ngModel)]="newTarea.nombre" formControlName="tarea" />
+        <textarea 
+            rows="5"
+            cols="30" 
+            pInputTextarea 
+            [(ngModel)]="newTarea.descripcion"
+            formControlName="descripcion"
+            >
+        </textarea>
+        <p-calendar [(ngModel)]="newTarea.fechaVencimiento" formControlName="fecha"></p-calendar>
+        <p-dropdown [options]= [1,2,3] [(ngModel)]="newTarea.prioridad"  [showClear]="true" placeholder="Select a City" formControlName="prioridad"></p-dropdown>
+        <p-chips [(ngModel)]="newTarea.tags" formControlName="tags" ></p-chips>
+        <p-button label="Editar"  type="submit" [disabled]="createTareaForm.invalid"></p-button>
+    </form>
+</div>

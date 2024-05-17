@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+html {
+    background-color: #dd8736;
+    padding: 0;
+    margin: 0;
+}
+
+html * {
+    font-family: "Chakra Petch", sans-serif;
+   
+    
+}
